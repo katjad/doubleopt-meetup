@@ -7,9 +7,9 @@ var passport = require('passport'),
     util = require('util'),
     MeetupStrategy = require('passport-meetup').Strategy;
 
-// var MEETUP_OAUTH_KEY = 's3ja62pntbsb6mctlkg07ln103';
-// var MEETUP_OAUTH_SECRET = 'grsmt218cva1omfj2k7k4ned1p';
-
+var authurl = config.HOST+'/auth/meetup/callback';
+var dataurl = 'https://api.myjson.com/bins/'+config.DATA;
+    
 
 router.use(cookieSession({
   name: 'session',
@@ -30,7 +30,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new MeetupStrategy({
   consumerKey: config.MEETUP_OAUTH_KEY,
   consumerSecret: config.MEETUP_OAUTH_SECRET,
-  callbackURL: "https://127.0.0.1:3000/auth/meetup/callback"
+  callbackURL: authurl
   },
   function(token, tokenSecret, profile, done) {
     process.nextTick(function() {
@@ -44,8 +44,7 @@ router.use(passport.session());
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var url = "https://api.myjson.com/bins/17fagr";
-  var prom = fetchData.get(url);
+  var prom = fetchData.get(dataurl);
   console.log("session",req.session)
   prom.then(function(resp){
     res.render('index', { title: 'Attendees', jsondata: resp });
@@ -72,11 +71,9 @@ router.get('/auth/meetup',
 
 router.get('/auth/meetup/callback',
   passport.authenticate('meetup', {failureRedirect: '/login'}),
-  function(req, res){
-    var url = "https://api.myjson.com/bins/8ai23";
-    var prom = fetchData.get(url);
-    prom.then(function(resp){
-      
+  function(req, res){    
+    var prom = fetchData.get(dataurl);
+    prom.then(function(resp){      
       res.render('index', { title: 'Attendees', jsondata: resp, user: req.user });
     })   
   }
