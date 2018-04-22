@@ -24,7 +24,7 @@ block content
                 )
               else
                 - var conf = (member.confirmed) ? 'Yes' : 'No'
-                span(class="#{conf}") #{conf}
+                span #{conf}
             td
               if className == 'active'
                 mixin tabledata(name, id, value)
@@ -40,13 +40,13 @@ block content
                 +tabledata('Python Dojo', 'toggle-python', 'Python')
                 +tabledata('Haskell', 'toggle-haskell', 'Haskell')
               else 
-                 span(class="#{member.preference}") #{member.preference}
-          if className == 'active'
-            tr 
-              td 
-              td(id="submitconf") 
-               button(type="submit") Submit
-              td
-               span(id="message")
+                 span #{member.preference}
+        if className == 'active'
+          tr 
+            td 
+            td(id="submitconf") 
+              button(type="submit") Submit
+            td
+              span(id="message")
 block scripts
   script(src="/javascripts/postdata.js")
