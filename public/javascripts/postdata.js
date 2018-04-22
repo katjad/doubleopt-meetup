@@ -1,9 +1,6 @@
 let confirmed, confticked, pref, prefvalue;
-const activemember = document.getElementsByClassName('active')[0];
-const userid = activemember.parentNode.getAttribute("id")
-const userrow = document.getElementById(userid)
-const submitconf = document.getElementById("submitconf")
-const message = document.getElementById("message")
+let activemember = document.getElementsByClassName('active')[0];
+
 const url = 'https://api.myjson.com/bins/17fagr';
 
 
@@ -34,26 +31,31 @@ function postData(url, data) {
     .catch(error => console.error(error)) 
 }
 
+if (activemember){
+    let userid = activemember.parentNode.getAttribute("id")
+    let userrow = document.getElementById(userid)
+    let submitconf = document.getElementById("submitconf")
+    let message = document.getElementById("message")
 
-submitconf.addEventListener('click', function(e){
+    submitconf.addEventListener('click', function(e){
     e.preventDefault();
     if(message){
         message.innerHTML = ''
     }
-    if (userrow){       
+    if(userrow){       
         confirmed = userrow.querySelector('input[name="confirmation"]')
         confticked = confirmed.checked
         pref = userrow.querySelectorAll('input[name="preference"]')
         pref.forEach(function(prefoption){
             if(prefoption.checked){
                 prefvalue = prefoption.getAttribute("value");
-                console.log("pref",prefvalue);
+                //console.log("pref",prefvalue);
             }
         })
     }
             
     getData(url).then((myJson) => {
-        console.log("pref again",prefvalue);
+        //console.log("pref again",prefvalue);
         let newjson = myJson.map((member) => {
             if (member.id == userid) {
                 member.confirmed = confticked
@@ -67,4 +69,5 @@ submitconf.addEventListener('click', function(e){
         postData(url, newj)
     })
     .catch(error => console.error(error))        
-})
+    })
+}
