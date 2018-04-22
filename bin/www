@@ -6,35 +6,35 @@
 
 var app = require('../app');
 var debug = require('debug')('mconfirm:server');
-var http = require('http');
+// var http = require('http');
 // below was for the dev server
-//var https = require('https');
-// var config = require('../config');
-// var fs = require('fs');
-// var options = {}
-// if (process.env.MODE == 'dev'){
-// var options = {
-//   key: fs.readFileSync(config.CERTPATH+'/server.key'),
-//   cert: fs.readFileSync(config.CERTPATH+'/server.crt'),
-//   requestCert: false,
-//   rejectUnauthorized: false
-//   };
-// }
+var https = require('https');
+var config = require('../config');
+var fs = require('fs');
+var options = {}
+if (process.env.MODE == 'dev'){
+var options = {
+  key: fs.readFileSync(config.CERTPATH+'/server.key'),
+  cert: fs.readFileSync(config.CERTPATH+'/server.crt'),
+  requestCert: false,
+  rejectUnauthorized: false
+  };
+}
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '8833');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+//var server = http.createServer(app);
 // for dev: 
-// var server = https.createServer(options, app);
+var server = https.createServer(options, app);
 
 /**
  * Listen on provided port, on all network interfaces.
