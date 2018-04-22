@@ -12,14 +12,13 @@ var https = require('https');
 var config = require('../config');
 var fs = require('fs');
 var options = {}
-if (process.env.MODE == 'dev'){
+
 var options = {
   key: fs.readFileSync(config.CERTPATH+'/server.key'),
   cert: fs.readFileSync(config.CERTPATH+'/server.crt'),
   requestCert: false,
   rejectUnauthorized: false
   };
-}
 
 /**
  * Get port from environment and store in Express.
