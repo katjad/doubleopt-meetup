@@ -10,37 +10,37 @@ block content
         td Name
         td Attending
         td Python Dojo
-        each member in jsondata
-          if user
-            - var className = (member.id == user.id) ? 'active' : ''
-          tr(id=member.id) 
-            td(class=className) #{member.name}
-            td              
-              if className == 'active'
+      each member in jsondata
+        if user
+          - var className = (member.id == user.id) ? 'active' : ''
+        tr(id=member.id) 
+          td(class=className) #{member.name}
+          td              
+            if className == 'active'
+              input(
+                type='checkbox'
+                name='confirmation'
+                checked=(member.confirmed)                                 
+              )
+            else
+              - var conf = (member.confirmed) ? 'Yes' : 'No'
+              span #{conf}
+          td
+            if className == 'active'
+              mixin tabledata(name, id, value)
                 input(
-                  type='checkbox'
-                  name='confirmation'
-                  checked=(member.confirmed)                                 
+                  type='radio' 
+                  name='preference' 
+                  id=id 
+                  value=value
+                  checked=(member.preference == value)                   
                 )
-              else
-                - var conf = (member.confirmed) ? 'Yes' : 'No'
-                span #{conf}
-            td
-              if className == 'active'
-                mixin tabledata(name, id, value)
-                  input(
-                    type='radio' 
-                    name='preference' 
-                    id=id 
-                    value=value
-                    checked=(member.preference == value)                   
-                  )
-                  label(for=id) #{name}
-                +tabledata('Hacknight', 'toggle-hn', 'Hacknight')
-                +tabledata('Python Dojo', 'toggle-python', 'Python')
-                +tabledata('Haskell', 'toggle-haskell', 'Haskell')
-              else 
-                 span #{member.preference}
+                label(for=id) #{name}
+              +tabledata('Hacknight', 'toggle-hn', 'Hacknight')
+              +tabledata('Python Dojo', 'toggle-python', 'Python')
+              +tabledata('Haskell', 'toggle-haskell', 'Haskell')
+            else 
+                span #{member.preference}
         if className == 'active'
           tr 
             td 
