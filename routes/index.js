@@ -4,7 +4,6 @@ var config = require('../config');
 var fetchData = require('../lib/fetchdata');
 var cookieSession = require('cookie-session');
 var passport = require('passport'),
-    util = require('util'),
     MeetupStrategy = require('passport-meetup').Strategy;
 
 var authurl = config.HOST+'/auth/meetup/callback';
@@ -13,13 +12,13 @@ var dataurl = 'https://api.myjson.com/bins/'+config.DATA;
 
 router.use(cookieSession({
   name: 'session',
-  keys: ['key1', 'key2'],
-  // Cookie Options
+  keys: ['key1', 'key2'],  
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  userobj = {"id":user.id, "name": user.displayName}
+  done(null, userobj);
 });
 
 passport.deserializeUser(function(obj, done) {
@@ -34,34 +33,40 @@ passport.use(new MeetupStrategy({
   },
   function(token, tokenSecret, profile, done) {
     process.nextTick(function() {
-      return done(null, profile, token)
+      /* the done method takes 
+      an error object and the user obj if it exists
+      different cases
+      error doing anything -> done(error)
+      no user obj -> done(null, false)
+      everything right -> done(null, profile) */    
+      return done(null, profile)
     })
   }
 ));
 router.use(passport.initialize());
 router.use(passport.session());
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var prom = fetchData.get(dataurl);
-  console.log("session",req.session)
+  // console.log("session p",req.session.passport)
+  if(req.session.passport){
+    var user = req.session.passport.user 
+  }
   prom.then(function(resp){
-    res.render('index', { title: 'Attendees', jsondata: resp });
+    var jsonmod = JSON.stringify(resp)
+    res.render('index', { title: 'Attendees', jsonmod: jsonmod, jsondata: resp, user: user });
   }) 
-});
-
-router.get('/confirm', function(req, res, next) {
-  res.render('confirm', { title: 'Confirm attendance' });
 });
 
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Login' });
 });
 
-router.get('/member', function(req, res, next) {
-  res.render('member', { title: 'Member' });
-});
+router.get('/logout', function(req, res, next){
+  req.logout()
+  res.redirect('/')
+})
 
 router.get('/auth/meetup',
   passport.authenticate('meetup'),
@@ -72,10 +77,7 @@ router.get('/auth/meetup',
 router.get('/auth/meetup/callback',
   passport.authenticate('meetup', {failureRedirect: '/login'}),
   function(req, res){    
-    var prom = fetchData.get(dataurl);
-    prom.then(function(resp){      
-      res.render('index', { title: 'Attendees', jsondata: resp, user: req.user });
-    })   
+    res.redirect('/')  
   }
 )
 

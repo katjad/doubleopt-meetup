@@ -1,3 +1,6 @@
+console.log("userId", window.userId)
+console.dir(myjson)
+
 let confirmed, confticked, pref, prefvalue;
 let activemember = document.getElementsByClassName('active')[0];
 
@@ -53,21 +56,30 @@ if (activemember){
             }
         })
     }
+
+    let newjson = myjson.map((member) => {
+        if (member.id == userid) {
+            member.confirmed = confticked
+            member.preference = prefvalue
+        }
+        return member
+    })
+    postData(url,newjson);
             
-    getData(url).then((myJson) => {
-        //console.log("pref again",prefvalue);
-        let newjson = myJson.map((member) => {
-            if (member.id == userid) {
-                member.confirmed = confticked
-                member.preference = prefvalue
-            }
-            return member
-        })
-        return newjson
-    })
-    .then((newj) => {
-        postData(url, newj)
-    })
-    .catch(error => console.error(error))        
+    // getData(url).then((myJson) => {
+    //     //console.log("pref again",prefvalue);
+    //     let newjson = myJson.map((member) => {
+    //         if (member.id == userid) {
+    //             member.confirmed = confticked
+    //             member.preference = prefvalue
+    //         }
+    //         return member
+    //     })
+    //     return newjson
+    // })
+    // .then((newj) => {
+    //     postData(url, newj)
+    // })
+    // .catch(error => console.error(error))        
     })
 }
