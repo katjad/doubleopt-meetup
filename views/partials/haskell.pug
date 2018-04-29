@@ -10,12 +10,14 @@ mixin radiodata(name, id, value)
     label(for=id) #{name}
 +radiodata('Haskellbook', 'toggle-bk', 'Haskellbook')
 if chapters
-    select#chapter(name="chapter" class="fade-in")
-        each ch in chapters        
-           option(value=ch.id, selected= member.chapter == ch.title) #{ch.title} #{sel}
+    .form-group
+        select#chapter(name="chapter" class="fade-in")
+            each ch in chapters        
+                option(value=ch.id, selected= member.chapter == ch.title) #{ch.title} #{sel}
 +radiodata('Own Project', 'toggle-own', 'Own Project')
 +radiodata('Other / Not decided yet', 'toggle-tbd', 'Other / Not decided yet')
-label(for="comment") Comment (< 280 chars)
-br
-textarea(id="comment", name="comment")  #{member.comment}
+.form-group
+    label(for="comment") Comment (< 280 chars)
+    br
+    textarea(id="comment", name="comment", col="5" rows="5")= member.comment
 

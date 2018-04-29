@@ -23,9 +23,22 @@ a.btn {
   text-align: center;
   border-radius: 10px; }
 
+button[type="submit"] {
+  background: #3f2b4f;
+  color: white;
+  font-weight: white;
+  border: none;
+  padding: 5px 13px 8px 13px;
+  border-radius: 5px; }
+
+button[type="submit"]:active {
+  background: #6f5b7f; }
+
 thead {
   font-weight: bold;
   height: 50px; }
+  thead td {
+    padding-bottom: 13px; }
 
 .checkmark {
   padding-left: 24px;
@@ -41,7 +54,9 @@ thead {
   background: #ededed; }
 
 .form-group {
-  display: block; }
+  display: block;
+  margin-left: 8px;
+  padding: 8px 5px; }
 
 @keyframes fadeOut {
   to {

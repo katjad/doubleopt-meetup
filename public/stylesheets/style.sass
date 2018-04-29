@@ -22,17 +22,22 @@ a.btn
   text-align: center
   border-radius: 10px
 
-// a.btn:after
-//   content: ''
-//   position: absolute
-//   right: 0
-//   border-left: 10px #3f2b4f solid
-//   border-top: 10px transparent solid
-//   border-bottom: 10px transparent solid
+button[type="submit"]
+  background: #3f2b4f
+  color: white
+  font-weight: white
+  border: none
+  padding: 5px 13px 8px 13px
+  border-radius: 5px
+
+button[type="submit"]:active
+    background: #6f5b7f
 
 thead 
-  font-weight: bold;
-  height: 50px;
+  font-weight: bold
+  height: 50px
+  td 
+    padding-bottom: 13px
 
 .checkmark
   padding-left: 24px
@@ -47,8 +52,11 @@ thead
   width: 21px
   background: #ededed
 
+
 .form-group
   display: block
+  margin-left: 8px
+  padding: 8px 5px
 
 .fade-out
   @keyframes fadeOut

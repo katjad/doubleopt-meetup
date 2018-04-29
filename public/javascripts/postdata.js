@@ -33,22 +33,22 @@ if (activemember){
     let selectchapter = document.getElementById("chapter")
     let haskellbook = document.getElementById("toggle-bk")
     //console.log("hask",haskellbook)
-    // if(haskellbook){
-    //     pref = userrow.querySelectorAll('input[name="preference"]')
-    //     pref.forEach(function(prefoption){
-    //         prefoption.addEventListener('click', () => {
-    //             if(!haskellbook.checked){
-    //                 setTimeout(function(){
-    //                     selectchapter.className == "hidden"
-    //                 }, 500)
-    //             }
-    //             haskellbook.checked 
-    //             ? selectchapter.className = "fade-in"
-    //             : selectchapter.className = "fade-out"
+    if(haskellbook){
+        pref = userrow.querySelectorAll('input[name="preference"]')
+        pref.forEach(function(prefoption){
+            prefoption.addEventListener('click', () => {
+                if(!haskellbook.checked){
+                    setTimeout(function(){
+                        selectchapter.className == "hidden"
+                    }, 500)
+                }
+                haskellbook.checked 
+                ? selectchapter.className = "fade-in"
+                : selectchapter.className = "fade-out"
  
-    //         })
-    //     })
-    // }
+            })
+        })
+    }
 
     submitconf.addEventListener('click', function(e){
         e.preventDefault();
