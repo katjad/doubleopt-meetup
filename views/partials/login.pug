@@ -1,0 +1,8 @@
+if user
+  p Currently logged in as: #{user.name} (Meetup id: #{user.id})     
+  p 
+    a(class="btn" href="/logout") Logout
+else 
+  p
+    a(class="btn" href="/auth/meetup") Login via Meetup
+p 

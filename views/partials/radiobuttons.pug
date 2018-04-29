@@ -1,0 +1,12 @@
+mixin tabledata(name, id, value)
+    input(
+        type='radio' 
+        name='preference' 
+        id=id 
+        value=value
+        checked=(member.preference == value)                   
+    )
+    label(for=id) #{name}
++tabledata('Hacknight', 'toggle-hn', 'Hacknight')
++tabledata('Python Dojo', 'toggle-python', 'Python')
++tabledata('Haskell', 'toggle-haskell', 'Haskell')

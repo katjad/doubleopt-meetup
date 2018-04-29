@@ -3,6 +3,7 @@ var router = express.Router();
 var config = require('../config');
 var fetchData = require('../lib/fetchdata');
 var cookieSession = require('cookie-session');
+var chapters = require('../lib/haskellchapters');
 var passport = require('passport'),
     MeetupStrategy = require('passport-meetup').Strategy;
 
@@ -53,9 +54,15 @@ router.get('/', function(req, res, next) {
   if(req.session.passport){
     var user = req.session.passport.user 
   }
-  prom.then(function(resp){
+  prom.then(function(resp){  
     var jsonmod = JSON.stringify(resp)
-    res.render('index', { title: 'Attendees', jsonmod: jsonmod, jsondata: resp, user: user });
+    var chaptersmod = JSON.stringify(chapters)
+    res.render('index', { 
+      title: 'Haskell 1 May 2018', 
+      chapters: chapters, 
+      chaptersmod: chaptersmod,
+      jsonmod: jsonmod,  
+      jsondata: resp, user: user });
   }) 
 });
 

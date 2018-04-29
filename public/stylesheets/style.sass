@@ -7,4 +7,69 @@ a
 .active 
   font-weight: bold 
 
+h1 
+  color: #3f2b4f
 
+a.btn
+  position: relative
+  display: block
+  padding: 8px 21px 13px 21px
+  width: 120px
+  background: #F64060
+  color: white
+  font-weight: bold
+  text-decoration: none
+  text-align: center
+  border-radius: 10px
+
+// a.btn:after
+//   content: ''
+//   position: absolute
+//   right: 0
+//   border-left: 10px #3f2b4f solid
+//   border-top: 10px transparent solid
+//   border-bottom: 10px transparent solid
+
+thead 
+  font-weight: bold;
+  height: 50px;
+
+.checkmark
+  padding-left: 24px
+  background: url(/images/PNG/checkmark.png)
+  background: url(/images/SVG/checkmark.svg) no-repeat, linear-gradient(transparent, transparent)
+  background-size: contain
+  height: 21px
+  width: 21px
+
+.blank
+  height: 21px
+  width: 21px
+  background: #ededed
+
+.form-group
+  display: block
+
+.fade-out
+  @keyframes fadeOut
+    to
+      opacity: 0
+
+.fade-out
+  opacity: 1
+  animation: fadeOut .5s ease-in 1 forwards
+
+.hidden 
+  display: none
+
+.fade-in
+  @keyframes fadeIn
+    to
+      opacity: 1
+
+.fade-in
+  opacity: 0
+  animation: fadeIn .5s ease-in 1 forwards
+
+.comment
+  font-style: italic
