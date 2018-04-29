@@ -6,7 +6,7 @@ Prototype of a one-page app that let\'s users reconfirm their Meetup attendance,
 
 Node/Express + PugJS
 
-The app needs a config file at root level, of this format, where DATA is a slug for a JSON objects stored at myjson.com:        
+The app needs a config.js file at root level, of this format, where DATA is a slug for a JSON object stored at myjson.com:        
 ```
 var config = {
     MEETUP_OAUTH_KEY : 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
